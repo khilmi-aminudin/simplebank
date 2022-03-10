@@ -7,6 +7,9 @@ execdb :
 createdb :
 	docker exec -it postgres-simplebank createdb --username=root --owner=root simple_bank
 
+rundb :
+	docker start postgres-simplebank
+
 initmigrate :
 	migrate create -ext sql -dir db/migration -seq init_schema
 
@@ -18,5 +21,8 @@ migratedown :
 
 sqlc :
 	sqlc generate
+
+test :
+	go test -v -cover ./...
 
 .PHONY : postgresql execdb createdb initmigrate migrateup migratedown
